@@ -1,0 +1,114 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+i                   0x4               startup.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x00000000         0x20000000         xr
+sram             0x20000000         0x20000000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00000000      0x1cc
+ *(.vectors*)
+ .vectors       0x00000000       0x10 startup.o
+                0x00000000                g_f_vectors
+ *(.text*)
+ .text          0x00000010       0xc4 lab2.o
+                0x00000010                main
+ .text          0x000000d4       0xf8 startup.o
+                0x000000d4                H_Fault_Handler
+                0x000000d4                Default_Handler
+                0x000000d4                NMI_Handler
+                0x000000e0                Reset_Handler
+ *(.rodata*)
+                0x000001cc                _E_text = .
+
+.glue_7         0x000001cc        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x000001cc        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x000001cc        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x000001cc        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x000001cc        0x0
+ .iplt          0x00000000        0x0 lab2.o
+
+.rel.dyn        0x000001cc        0x0
+ .rel.iplt      0x00000000        0x0 lab2.o
+
+.data           0x20000000        0x0 load address 0x000001cc
+                0x20000000                _S_DATA = .
+ *(.data)
+ .data          0x20000000        0x0 lab2.o
+ .data          0x20000000        0x0 startup.o
+                0x20000000                _E_DATA = .
+
+.igot.plt       0x20000000        0x0 load address 0x000001cc
+ .igot.plt      0x00000000        0x0 lab2.o
+
+.bss            0x20000000      0x404 load address 0x000001cc
+                0x20000000                _S_bss = .
+ *(.bss)
+ .bss           0x20000000        0x0 lab2.o
+ .bss           0x20000000      0x400 startup.o
+                0x20000400                _E_bss = .
+ COMMON         0x20000400        0x4 startup.o
+                0x20000400                i
+LOAD lab2.o
+LOAD startup.o
+OUTPUT(lab4-unit3-cortex-m4.elf elf32-littlearm)
+
+.debug_info     0x00000000      0x1eb
+ .debug_info    0x00000000       0x65 lab2.o
+ .debug_info    0x00000065      0x186 startup.o
+
+.debug_abbrev   0x00000000      0x122
+ .debug_abbrev  0x00000000       0x5a lab2.o
+ .debug_abbrev  0x0000005a       0xc8 startup.o
+
+.debug_loc      0x00000000       0x9c
+ .debug_loc     0x00000000       0x38 lab2.o
+ .debug_loc     0x00000038       0x64 startup.o
+
+.debug_aranges  0x00000000       0x40
+ .debug_aranges
+                0x00000000       0x20 lab2.o
+ .debug_aranges
+                0x00000020       0x20 startup.o
+
+.debug_line     0x00000000       0xc8
+ .debug_line    0x00000000       0x61 lab2.o
+ .debug_line    0x00000061       0x67 startup.o
+
+.debug_str      0x00000000      0x10e
+ .debug_str     0x00000000       0x34 lab2.o
+                                 0x3d (size before relaxing)
+ .debug_str     0x00000034       0xda startup.o
+                                0x130 (size before relaxing)
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 lab2.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000000       0x12 startup.o
+
+.ARM.attributes
+                0x00000000       0x33
+ .ARM.attributes
+                0x00000000       0x33 lab2.o
+ .ARM.attributes
+                0x00000033       0x33 startup.o
+
+.debug_frame    0x00000000       0x78
+ .debug_frame   0x00000000       0x2c lab2.o
+ .debug_frame   0x0000002c       0x4c startup.o
